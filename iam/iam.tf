@@ -1,3 +1,10 @@
+resource "aws_iam_group" "sysusers" {
+  name = "sysusers"
+}
+
+
+
+
 resource "aws_iam_user" "bob" {
   name = "bob"
   tags = {
@@ -6,17 +13,21 @@ resource "aws_iam_user" "bob" {
 }
 
 
-resource "aws_iam_group" "sysusers" {
-  name = "sysusers"
+resource "aws_iam_user_group_membership" "team" {
+  user = aws_iam_user.bob.name
+
+  groups = [
+    aws_iam_group.sysusers.name,
+  ]
 }
 
 
 
 
-resource "aws_iam_group_membership" "team" {
-  name = "sysusers"
-  users = [
-    aws_iam_user.bob.name,
-  ]
-  group = aws_iam_group.sysusers.name
+output "user_bob" {
+  value = aws_iam_user.bob.name
+}
+
+output "group_sysusers" {
+  value = aws_iam_group.sysusers.name
 }
