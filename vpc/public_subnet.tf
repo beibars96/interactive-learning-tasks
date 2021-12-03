@@ -14,3 +14,18 @@ resource "aws_subnet" "public_subnet3" {
   availability_zone = data.aws_availability_zones.available.names[2]
 }
 
+
+resource "aws_route_table_association" "public_subnet1" {
+  subnet_id      = aws_subnet.public_subnet1.id
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table_association" "public_subnet2" {
+  subnet_id      = aws_subnet.public_subnet2.id
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table_association" "public_subnet3" {
+  subnet_id      = aws_subnet.public_subnet3.id
+  route_table_id = aws_route_table.public.id
+}
